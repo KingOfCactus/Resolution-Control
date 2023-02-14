@@ -1,10 +1,10 @@
 package io.github.ultimateboomer.resolutioncontrol.mixin;
 
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(value = MainWindow.class)
+@Mixin(value = Window.class)
 public interface MainWindowAccessor {
     @Invoker
     void callUpdateFramebufferSize();

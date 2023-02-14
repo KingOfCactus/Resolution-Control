@@ -5,20 +5,18 @@ import io.github.ultimateboomer.resolutioncontrol.client.gui.screen.SettingsScre
 import io.github.ultimateboomer.resolutioncontrol.mixin.MainWindowAccessor;
 import io.github.ultimateboomer.resolutioncontrol.mixin.MinecraftAccessor;
 import io.github.ultimateboomer.resolutioncontrol.util.*;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.ScreenShotHelper;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.KeyMapping;
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.Screenshot;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,21 +50,21 @@ public class ResolutionControlMod{
 
 	private boolean optifineInstalled;
 	
-	private KeyBinding settingsKey;
-	private KeyBinding screenshotKey;
+	private KeyMapping settingsKey;
+	private KeyMapping screenshotKey;
 	
 	private boolean shouldScale = false;
 	
 	@Nullable
-	private Framebuffer framebuffer;
+	private RenderTarget framebuffer;
 
 	@Nullable
-	private Framebuffer screenshotFrameBuffer;
+	private RenderTarget screenshotFrameBuffer;
 	
 	@Nullable
-	private Framebuffer clientFramebuffer;
+	private RenderTarget clientFramebuffer;
 
-	private Set<Framebuffer> minecraftFramebuffers;
+	private Set<RenderTarget> minecraftFramebuffers;
 
 	private Class<? extends SettingsScreen> lastSettingsScreen = MainSettingsScreen.class;
 
@@ -127,13 +125,13 @@ public class ResolutionControlMod{
 	public void onInitialize() {
 		instance = this;
 
-		settingsKey = new KeyBinding(
+		settingsKey = new KeyMapping(
 				"key.resolutioncontrol.settings",
 				GLFW.GLFW_KEY_O,
 				"key.categories.resolutioncontrol");
 		ClientRegistry.registerKeyBinding(settingsKey);
 
-		screenshotKey = new KeyBinding(
+		screenshotKey = new KeyMapping(
 				"key.resolutioncontrol.screenshot",
 				-1,
 				"key.categories.resolutioncontrol");
@@ -158,7 +156,7 @@ public class ResolutionControlMod{
 				if (getOverrideScreenshotScale()) {
 					this.screenshot = true;
 					client.player.sendStatusMessage(
-							new TranslationTextComponent("resolutioncontrol.screenshot.wait"), false);
+							new TranslatableComponent("resolutioncontrol.screenshot.wait"), false);
 				} else {
 					saveScreenshot(framebuffer);
 				}
@@ -171,8 +169,8 @@ public class ResolutionControlMod{
 		}
 	}
 
-	private void saveScreenshot(Framebuffer fb) {
-		ScreenShotHelper.saveScreenshot(client.gameDir,
+	private void saveScreenshot(RenderTarget fb) {
+		Screenshot.saveScreenshot(client.gameDir,
 				RCUtil.getScreenshotFilename(client.gameDir).toString(),
 				fb.framebufferTextureWidth, fb.framebufferTextureHeight, fb,
 				text -> client.player.sendStatusMessage(text, false));
@@ -183,10 +181,10 @@ public class ResolutionControlMod{
 
 		if (getScaleFactor() == 1) return;
 		
-		MainWindow window = getWindow();
+		Window window = getWindow();
 		if (framebuffer == null) {
 			this.shouldScale = true; // so we get the right dimensions
-			framebuffer = new Framebuffer(
+			framebuffer = new RenderTarget(
 					window.getFramebufferWidth(),
 					window.getFramebufferHeight(),
 					true,
@@ -265,14 +263,14 @@ public class ResolutionControlMod{
 		minecraftFramebuffers.remove(null);
 	}
 
-	public Framebuffer getFramebuffer() {
+	public RenderTarget getFramebuffer() {
 		return framebuffer;
 	}
 
 	public void initScreenshotFramebuffer() {
 		if (Objects.nonNull(screenshotFrameBuffer)) screenshotFrameBuffer.deleteFramebuffer();
 
-		screenshotFrameBuffer = new Framebuffer(
+		screenshotFrameBuffer = new RenderTarget(
 				getScreenshotWidth(), getScreenshotHeight(),
 				true, Minecraft.IS_RUNNING_ON_MAC);
 	}
@@ -441,7 +439,7 @@ public class ResolutionControlMod{
 		estimatedMemory = (long) currentWidth * currentHeight * 8;
 	}
 	
-	public void resize(@Nullable Framebuffer framebuffer) {
+	public void resize(@Nullable RenderTarget framebuffer) {
 		if (framebuffer == null) return;
 
 		boolean prev = shouldScale;
@@ -462,15 +460,15 @@ public class ResolutionControlMod{
 		shouldScale = prev;
 	}
 	
-	private MainWindow getWindow() {
+	private Window getWindow() {
 		return client.getMainWindow();
 	}
 
-	private void setClientFramebuffer(Framebuffer framebuffer) {
+	private void setClientFramebuffer(RenderTarget framebuffer) {
 		((MinecraftAccessor)client).setFramebuffer(framebuffer);
 	}
 
-	public KeyBinding getSettingsKey() {
+	public KeyMapping getSettingsKey() {
 		return settingsKey;
 	}
 

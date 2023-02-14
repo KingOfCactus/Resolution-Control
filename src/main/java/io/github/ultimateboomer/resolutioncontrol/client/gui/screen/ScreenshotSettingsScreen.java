@@ -1,12 +1,12 @@
 package io.github.ultimateboomer.resolutioncontrol.client.gui.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.ultimateboomer.resolutioncontrol.util.RCUtil;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.Nullable;
@@ -15,12 +15,12 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
     private static final double[] scaleValues = {0.1, 0.25, 0.5, 1.0,
             2.0, 3.0, 4.0, 6.0, 8.0, 16.0};
 
-    private static final ITextComponent increaseText = new StringTextComponent("x2");
-    private static final ITextComponent decreaseText = new StringTextComponent("/2");
-    private static final ITextComponent resetText = new StringTextComponent("R");
+    private static final Component increaseText = new TextComponent("x2");
+    private static final Component decreaseText = new TextComponent("/2");
+    private static final Component resetText = new TextComponent("R");
 
-    private TextFieldWidget widthTextField;
-    private TextFieldWidget heightTextField;
+    private EditBox widthTextField;
+    private EditBox heightTextField;
 
     private Button increaseButton;
     private Button decreaseButton;
@@ -64,17 +64,17 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
         );
         addButton(toggleAlwaysAllocatedButton);
 
-        widthTextField = new TextFieldWidget(font,
+        widthTextField = new EditBox(font,
                 centerX - 85, centerY + 7,
                 textFieldSize, buttonSize,
-                StringTextComponent.EMPTY);
+                TextComponent.EMPTY);
         widthTextField.setText(String.valueOf(mod.getScreenshotWidth()));
         addButton(widthTextField);
 
-        heightTextField = new TextFieldWidget(font,
+        heightTextField = new EditBox(font,
                 centerX - 35, centerY + 7,
                 textFieldSize, buttonSize,
-                StringTextComponent.EMPTY);
+                TextComponent.EMPTY);
         heightTextField.setText(String.valueOf(mod.getScreenshotHeight()));
         addButton(heightTextField);
 
@@ -103,7 +103,7 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
 
         drawLeftAlignedString(matrices,

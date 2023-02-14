@@ -1,15 +1,15 @@
 package io.github.ultimateboomer.resolutioncontrol.mixin;
 
 import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
-import net.minecraft.client.MainWindow;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.platform.Window;
+import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = MainWindow.class)
+@Mixin(value = Window.class)
 public abstract class WindowMixin {
 	@Inject(at = @At("RETURN"), method = "getFramebufferWidth", cancellable = true)
 	private void getFramebufferWidth(CallbackInfoReturnable<Integer> ci) {
@@ -32,7 +32,7 @@ public abstract class WindowMixin {
 	private int scale(int value) {
 		if(!ResolutionControlMod.isInit()) return value;
 		double scaleFactor = ResolutionControlMod.getInstance().getCurrentScaleFactor();
-		return Math.max(MathHelper.ceil((double) value * scaleFactor), 1);
+		return Math.max(Mth.ceil((double) value * scaleFactor), 1);
 	}
 	
 	@Inject(at = @At("RETURN"), method = "getGuiScaleFactor", cancellable = true)

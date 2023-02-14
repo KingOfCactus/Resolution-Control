@@ -1,19 +1,18 @@
 package io.github.ultimateboomer.resolutioncontrol.client.gui.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
 import io.github.ultimateboomer.resolutioncontrol.util.RCUtil;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TextComponent;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
-
 
 @SuppressWarnings("FieldCanBeLocal")
 public final class MainSettingsScreen extends SettingsScreen {
@@ -24,18 +23,18 @@ public final class MainSettingsScreen extends SettingsScreen {
 
 	private static final double redValue = 2.0;
 
-	private static final StringTextComponent increaseText = new StringTextComponent("+");
-	private static final StringTextComponent decreaseText = new StringTextComponent("-");
-	private static final StringTextComponent setText = new StringTextComponent("S");
-	private static final StringTextComponent resetText = new StringTextComponent("R");
-	private static final StringTextComponent cancelText = new StringTextComponent("C");
+	private static final TextComponent increaseText = new TextComponent("+");
+	private static final TextComponent decreaseText = new TextComponent("-");
+	private static final TextComponent setText = new TextComponent("S");
+	private static final TextComponent resetText = new TextComponent("R");
+	private static final TextComponent cancelText = new TextComponent("C");
 
 	private Button increaseButton;
 	private Button decreaseButton;
 	private Button setButton;
 	private Button cancelOrResetButton;
 
-	private TextFieldWidget entryTextField;
+	private EditBox entryTextField;
 
 	private Button upscaleAlgoButton;
 	private Button downscaleAlgoButton;
@@ -95,9 +94,9 @@ public final class MainSettingsScreen extends SettingsScreen {
 		);
 		addButton(cancelOrResetButton);
 
-		entryTextField = new TextFieldWidget(font,
+		entryTextField = new EditBox(font,
 				centerX - 55 - textFieldSize / 2, centerY - 36,
-				textFieldSize, buttonSize, StringTextComponent.EMPTY);
+				textFieldSize, buttonSize, TextComponent.EMPTY);
 		entryTextField.setVisible(false);
 		addButton(entryTextField);
 
@@ -144,7 +143,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float time) {
+	public void render(PoseStack matrices, int mouseX, int mouseY, float time) {
 		super.render(matrices, mouseX, mouseY, time);
 
 		if (!this.manualEntry) {

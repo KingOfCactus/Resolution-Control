@@ -4,8 +4,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
 import io.github.ultimateboomer.resolutioncontrol.util.Config;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import net.minecraft.util.Mth;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL45;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.IntBuffer;
 
-@Mixin(value = Framebuffer.class)
+@Mixin(value = RenderTarget.class)
 public abstract class FramebufferMixin {
     @Unique private boolean isMipmapped;
     @Unique private float scaleMultiplier;
@@ -62,7 +62,7 @@ public abstract class FramebufferMixin {
     private void onTexImage(int target, int level, int internalFormat, int width, int height, int border, int format,
                             int type, IntBuffer pixels) {
         if (isMipmapped) {
-            int mipmapLevel = MathHelper.ceil(Math.log(scaleMultiplier) / Math.log(2));
+            int mipmapLevel = Mth.ceil(Math.log(scaleMultiplier) / Math.log(2));
             for (int i = 0; i < mipmapLevel; i++) {
                 GlStateManager.texImage2D(target, i, internalFormat,
                        width << i, height << i,

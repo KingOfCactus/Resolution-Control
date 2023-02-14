@@ -1,13 +1,13 @@
 package io.github.ultimateboomer.resolutioncontrol.client.gui.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import javax.annotation.Nonnull;
@@ -20,8 +20,8 @@ import java.util.function.Function;
 public class SettingsScreen extends Screen {
     protected static final ResourceLocation backgroundTexture = ResolutionControlMod.identifier("textures/gui/settings.png");
 
-    protected static TranslationTextComponent text(String path, Object... args) {
-        return new TranslationTextComponent(ResolutionControlMod.MOD_ID + "." + path, args);
+    protected static TranslatableComponent text(String path, Object... args) {
+        return new TranslatableComponent(ResolutionControlMod.MOD_ID + "." + path, args);
     }
 
     protected static final int containerWidth = 192;
@@ -51,7 +51,7 @@ public class SettingsScreen extends Screen {
 
     protected Button doneButton;
 
-    protected SettingsScreen(TranslationTextComponent title, @Nullable Screen parent) {
+    protected SettingsScreen(TranslatableComponent title, @Nullable Screen parent) {
         super(title);
         this.parent = parent;
     }
@@ -96,7 +96,7 @@ public class SettingsScreen extends Screen {
         doneButton = new Button(
                 centerX + 15, startY + containerHeight - 30,
                 60, 20,
-                new TranslationTextComponent("gui.done"),
+                new TranslatableComponent("gui.done"),
                 button -> {
                     applySettingsAndCleanup();
                     if (minecraft != null) {
@@ -108,7 +108,7 @@ public class SettingsScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(@Nonnull PoseStack matrices, int mouseX, int mouseY, float delta) {
         if (minecraft != null && minecraft.world == null) {
             renderBackground(matrices, 0);
         }
@@ -161,15 +161,15 @@ public class SettingsScreen extends Screen {
     };
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    protected void drawCenteredString(MatrixStack matrices, String text, float x, float y, int color) {
+    protected void drawCenteredString(PoseStack matrices, String text, float x, float y, int color) {
         font.drawString(matrices, text, x - font.getStringWidth(text) / 2, y, color);
     }
 
-    protected void drawLeftAlignedString(MatrixStack matrices, String text, float x, float y, int color) {
+    protected void drawLeftAlignedString(PoseStack matrices, String text, float x, float y, int color) {
         font.drawString(matrices, text, x, y, color);
     }
 
-    protected void drawRightAlignedString(MatrixStack matrices, String text, float x, float y, int color) {
+    protected void drawRightAlignedString(PoseStack matrices, String text, float x, float y, int color) {
         font.drawString(matrices, text, x - font.getStringWidth(text), y, color);
     }
 
@@ -177,8 +177,8 @@ public class SettingsScreen extends Screen {
         return screensSupplierList.get(screenClass).apply(null);
     }
 
-    protected static ITextComponent getStateText(boolean enabled) {
-        return enabled ? new TranslationTextComponent("addServer.resourcePack.enabled")
-                : new TranslationTextComponent("addServer.resourcePack.disabled");
+    protected static Component getStateText(boolean enabled) {
+        return enabled ? new TranslatableComponent("addServer.resourcePack.enabled")
+                : new TranslatableComponent("addServer.resourcePack.disabled");
     }
 }

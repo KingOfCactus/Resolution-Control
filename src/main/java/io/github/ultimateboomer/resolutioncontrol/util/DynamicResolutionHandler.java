@@ -40,14 +40,16 @@ public class DynamicResolutionHandler {
     private void update() {
         Minecraft client = Minecraft.getInstance();
 
-        final int smoothAmount = Config.getInstance().drFpsSmoothAmount;
-        float sum = 0;
-        for (int i = client.frameTimer.getIndex() - smoothAmount;
-             i < client.frameTimer.getIndex(); i++) {
+    //    final int smoothAmount = Config.getInstance().drFpsSmoothAmount;
+    //    float sum = 0;
+    //    for (int i = client.frameTimer.getIndex() - smoothAmount;
+    //         i < client.frameTimer.getIndex(); i++) {
+    //
+    //        sum += client.frameTimer.getFrames()[Math.floorMod(i, 240)];
+    //    }
+    //    float fps = 1_000_000_000.0f / (sum / smoothAmount);
 
-            sum += client.frameTimer.getFrames()[Math.floorMod(i, 240)];
-        }
-        float fps = 1_000_000_000.0f / (sum / smoothAmount);
+        float fps = Float.valueOf(client.fpsString);
 
         if (fps > Config.getInstance().drMaxFps) {
             setCurrentScale(Math.min(currentScale + 1, scales.size() - 1));

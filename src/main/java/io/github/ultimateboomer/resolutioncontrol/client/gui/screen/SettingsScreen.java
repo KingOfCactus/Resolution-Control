@@ -79,7 +79,7 @@ public class SettingsScreen extends Screen {
                     r.getTitle(),
                     button -> {
                         if (minecraft != null) {
-                            minecraft.displayGuiScreen(constructor.apply(this.parent));
+                            minecraft.setScreen(constructor.apply(this.parent));
                         }
                     }
             );
@@ -91,7 +91,7 @@ public class SettingsScreen extends Screen {
             o.add(25);
         });
 
-        menuButtons.values().forEach(this::addButton);
+        menuButtons.values().forEach(this::addWidget);
 
         doneButton = new Button(
                 centerX + 15, startY + containerHeight - 30,
@@ -100,22 +100,23 @@ public class SettingsScreen extends Screen {
                 button -> {
                     applySettingsAndCleanup();
                     if (minecraft != null) {
-                        minecraft.displayGuiScreen(this.parent);
+                        minecraft.setScreen(this.parent);
                     }
                 }
         );
-        addButton(doneButton);
+        addWidget(doneButton);
     }
 
     @Override
     public void render(@Nonnull PoseStack matrices, int mouseX, int mouseY, float delta) {
-        if (minecraft != null && minecraft.world == null) {
+    //  if (minecraft != null && minecraft.world == null) {
+        if (minecraft != null && minecraft.player.isAddedToWorld()) {
             renderBackground(matrices, 0);
         }
 
-        GlStateManager.enableAlphaTest();
-        minecraft.getTextureManager().bindTexture(backgroundTexture);
-        GlStateManager.color4f(1, 1, 1, 1);
+    //  GlStateManager.enableAlphaTest();
+        minecraft.getTextureManager().bindForSetup(backgroundTexture);
+    //  GlStateManager.color4f(1, 1, 1, 1);
 
         int textureWidth = 256;
         int textureHeight = 192;
@@ -137,12 +138,12 @@ public class SettingsScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if ((ResolutionControlMod.getInstance().getSettingsKey().matchesKey(keyCode, scanCode))) {
+        if ((ResolutionControlMod.getInstance().getSettingsKey().matches(keyCode, scanCode))) {
             this.applySettingsAndCleanup();
             if (this.minecraft != null) {
-                this.minecraft.displayGuiScreen(this.parent);
+                this.minecraft.setScreen(this.parent);
             }
-            this.minecraft.mouseHelper.grabMouse();
+            this.minecraft.mouseHandler.grabMouse();
             return true;
         } else {
             return super.keyPressed(keyCode, scanCode, modifiers);
@@ -162,15 +163,15 @@ public class SettingsScreen extends Screen {
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     protected void drawCenteredString(PoseStack matrices, String text, float x, float y, int color) {
-        font.drawString(matrices, text, x - font.getStringWidth(text) / 2, y, color);
+        font.draw(matrices, text, x - font.width(text) / 2, y, color);
     }
 
     protected void drawLeftAlignedString(PoseStack matrices, String text, float x, float y, int color) {
-        font.drawString(matrices, text, x, y, color);
+        font.draw(matrices, text, x, y, color);
     }
 
     protected void drawRightAlignedString(PoseStack matrices, String text, float x, float y, int color) {
-        font.drawString(matrices, text, x - font.getStringWidth(text), y, color);
+        font.draw(matrices, text, x - font.width(text), y, color);
     }
 
     public static SettingsScreen getScreen(Class<? extends SettingsScreen> screenClass) {

@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(value = Window.class)
 public interface MainWindowAccessor {
     @Invoker
-    void callUpdateFramebufferSize();
+    void refreshFramebufferSize();
 }

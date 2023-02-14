@@ -9,9 +9,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(value = Minecraft.class)
 public interface MinecraftAccessor {
     @Accessor
-    RenderTarget getFramebuffer();
+    RenderTarget getMainRenderTarget();
+
+//  @Mutable
+//  @Accessor(value = "framebuffer")
+//  void setFramebuffer(RenderTarget framebuffer);
 
     @Mutable
-    @Accessor(value = "framebuffer")
-    void setFramebuffer(RenderTarget framebuffer);
+    @Accessor(value = "mainRenderTarget")
+    void setRenderTarget(RenderTarget renderTarget);
 }

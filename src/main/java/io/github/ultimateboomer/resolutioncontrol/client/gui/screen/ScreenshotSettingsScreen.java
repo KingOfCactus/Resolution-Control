@@ -51,7 +51,7 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                     button.setMessage(getStateText(mod.getOverrideScreenshotScale()));
                 }
         );
-        addButton(toggleOverrideSizeButton);
+        addWidget(toggleOverrideSizeButton);
 
         toggleAlwaysAllocatedButton = new Button(
                 centerX + 20, centerY - 20,
@@ -62,42 +62,42 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                     button.setMessage(getStateText(mod.isScreenshotFramebufferAlwaysAllocated()));
                 }
         );
-        addButton(toggleAlwaysAllocatedButton);
+        addWidget(toggleAlwaysAllocatedButton);
 
         widthTextField = new EditBox(font,
                 centerX - 85, centerY + 7,
                 textFieldSize, buttonSize,
                 TextComponent.EMPTY);
-        widthTextField.setText(String.valueOf(mod.getScreenshotWidth()));
-        addButton(widthTextField);
+        widthTextField.setValue(String.valueOf(mod.getScreenshotWidth()));
+        addWidget(widthTextField);
 
         heightTextField = new EditBox(font,
                 centerX - 35, centerY + 7,
                 textFieldSize, buttonSize,
                 TextComponent.EMPTY);
-        heightTextField.setText(String.valueOf(mod.getScreenshotHeight()));
-        addButton(heightTextField);
+        heightTextField.setValue(String.valueOf(mod.getScreenshotHeight()));
+        addWidget(heightTextField);
 
         increaseButton = new Button(
                 centerX - 10 - 60, centerY + 35,
                 20, 20,
                 increaseText,
                 button -> multiply(2.0));
-        addButton(increaseButton);
+        addWidget(increaseButton);
 
         decreaseButton = new Button(
                 centerX + 10 - 60, centerY + 35,
                 20, 20,
                 decreaseText,
                 button -> multiply(0.5));
-        addButton(decreaseButton);
+        addWidget(decreaseButton);
 
         resetButton = new Button(
                 centerX + 30 - 60, centerY + 35,
                 20, 20,
                 resetText,
                 button -> resetSize());
-        addButton(resetButton);
+        addWidget(resetButton);
 
         calculateSize();
     }
@@ -143,10 +143,10 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
 
     @Override
     protected void applySettingsAndCleanup() {
-        if (NumberUtils.isParsable(widthTextField.getText())
-                && NumberUtils.isParsable(heightTextField.getText())) {
-            int newWidth = (int) Math.abs(Double.parseDouble(widthTextField.getText()));
-            int newHeight = (int) Math.abs(Double.parseDouble(heightTextField.getText()));
+        if (NumberUtils.isParsable(widthTextField.getValue())
+                && NumberUtils.isParsable(heightTextField.getValue())) {
+            int newWidth = (int) Math.abs(Double.parseDouble(widthTextField.getValue()));
+            int newHeight = (int) Math.abs(Double.parseDouble(heightTextField.getValue()));
 
             if (newWidth != mod.getScreenshotWidth() || newHeight != mod.getScreenshotHeight()) {
                 mod.setScreenshotWidth(newWidth);
@@ -161,12 +161,12 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
     }
 
     private void multiply(double mul) {
-        if (NumberUtils.isParsable(widthTextField.getText())
-                && NumberUtils.isParsable(heightTextField.getText())) {
-            widthTextField.setText(String.valueOf(
-                    (int) Math.abs(Double.parseDouble(widthTextField.getText()) * mul)));
-            heightTextField.setText(String.valueOf(
-                    (int) Math.abs(Double.parseDouble(heightTextField.getText()) * mul)));
+        if (NumberUtils.isParsable(widthTextField.getValue())
+                && NumberUtils.isParsable(heightTextField.getValue())) {
+            widthTextField.setValue(String.valueOf(
+                    (int) Math.abs(Double.parseDouble(widthTextField.getValue()) * mul)));
+            heightTextField.setValue(String.valueOf(
+                    (int) Math.abs(Double.parseDouble(heightTextField.getValue()) * mul)));
             calculateSize();
         }
     }
@@ -174,15 +174,15 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
     private void resetSize() {
         mod.setScreenshotWidth(3840);
         mod.setScreenshotHeight(2160);
-        widthTextField.setText(String.valueOf(mod.getScreenshotWidth()));
-        heightTextField.setText(String.valueOf(mod.getScreenshotHeight()));
+        widthTextField.setValue(String.valueOf(mod.getScreenshotWidth()));
+        heightTextField.setValue(String.valueOf(mod.getScreenshotHeight()));
     }
 
     private void calculateSize() {
-        if (NumberUtils.isParsable(widthTextField.getText())
-                && NumberUtils.isParsable(heightTextField.getText())) {
-            estimatedSize = (long) (Double.parseDouble(widthTextField.getText())
-                    * Double.parseDouble(heightTextField.getText()) * 8);
+        if (NumberUtils.isParsable(widthTextField.getValue())
+                && NumberUtils.isParsable(heightTextField.getValue())) {
+            estimatedSize = (long) (Double.parseDouble(widthTextField.getValue())
+                    * Double.parseDouble(heightTextField.getValue()) * 8);
         }
     }
 }

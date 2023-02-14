@@ -11,7 +11,7 @@ public final class ConfigHandler {
 	public static final ConfigHandler instance = new ConfigHandler();
 	
 	private static File configFile() {
-		return new File(Minecraft.getInstance().gameDir, "config/" + ResolutionControlMod.MOD_ID + ".json");
+		return new File(Minecraft.getInstance().gameDirectory, "config/" + ResolutionControlMod.MOD_ID + ".json");
 	}
 	
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();

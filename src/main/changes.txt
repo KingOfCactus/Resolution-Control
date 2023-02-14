@@ -1,0 +1,89 @@
+just to help me keep track of the original methods, for when i build this and everything blows up
+
+-- MainSettingsScreen, ScreenshotSettingsScreen
+
+    TextFieldWidget.getText() ---> EditBox.getValue()
+    TextFieldWidget.setText() ---> EditBox.setValue()
+    TextFieldWidget.setFocused2(bool) ---> EditBox.setFocus(bool)
+
+
+-- SettingsScreen
+
+    addButton(button) --> addWidget(button)
+
+    FontRenderer(?).getStringWidth(string) --> Font.width(string)
+    FontRenderer(?).drawString(PoseStack(?), string, float, float, int) --> Font.draw(PoseStack, string, float, float, int)
+    TextureManager.bindTexture(?) --> TextureManager.bindForSetup(ResourceLocation)
+    MouseHelper mouseHelper --> MouseHandler mouseHandler
+    KeyMapping.matchesKey(int, int) --> KeyMapping.matches(int, int);
+    Minecraft.displayGuiScreen(SettingsScreen) --> Minecraft.setScreen(SettingsScreen)
+
+    Minecraft.world != null ---> minecraft.player.isAddedToWorld()
+    
+    GlStateManager.enableAlphaTest() ---> ????????, commented
+    GlStateManager.color4f(int, int, int, int) ---> ????????, commented
+
+
+-- FramebufferMixin
+
+    GlStateManager.texParameter(args) ---> GlStateManager._texParameter(args)
+    GlStateManager.texImage2D(args) ---> GlStateManager._texImage2D(args)
+    GlStateManager.bindTexture(int) ---> GlStateManager._bindTexture(int)
+    Minecraft.getMainWindow() ---> Minecraft.getWindow()
+
+
+-- MainWindowAccessor
+    
+    callUpdateFramebufferSize() ---> refreshFramebufferSize()
+
+-- MinecraftAccessor
+
+    Framebuffer getFramebuffer() --> RenderTarget getMainRenderTarget()
+    setFramebuffer(Framebuffer framebuffer) --> setRenderTarget(RenderTarget renderTarget)
+
+-- ResolutionControlMod
+
+    Minecraft.getWindowX() ---> Minecraft.getX()
+    Minecraft.gameDir --> Minecraft.gameDirectory
+    Minecraft.IS_RUNNING_ON_MAC --> Minecraft.ON_OSX
+    Minecraft.worldRenderer --> Minecraft.levelRenderer
+    Minecraft.getMainWindow() ---> Minecraft.getWindow()
+    Minecraft.world != null ---> Minecraft.player.isAddedToWorld()
+    Minecraft.displayGuiScreen(SettingsScreen) --> Minecraft.setScreen(SettingsScreen)
+    
+    WorldRenderer.getEntityOutlineFramebuffer() ---> LevelRenderer.entityTarget()
+
+    Window.getFramebufferWidth() --> Window.getWidth()
+    Window.getFramebufferHeight() --> Window.getHeight()
+    Window.getScaledWidth --> Window.getGuiScaledWidth();
+    Window.getScaledHeight --> Window.getGuiScaledHeight();
+
+    KeyMapping.isPressed() --> KeyMapping.isDown()
+    
+    Framebuffer.framebufferTextureWidth --> RenderTarget.width
+    Framebuffer.framebufferTextureHeigh --> RenderTarget.height
+    Framebuffer.bindFramebuffer(bool) --> RenderTarget.bindWrite(bool)
+    Framebuffer.framebufferRender(int, int) --> RenderTarget.bindToScreen(int, int)
+    Framebuffer getFramebuffer() --> RenderTarget getMainRenderTarget()
+
+    ProfilleFiller.endStartSection(string) --> ProfilleFiller.push(string)
+    
+    callUpdateFramebufferSize() ---> refreshFramebufferSize()
+    setFramebuffer(framebuffer) --> setRenderTarget(renderTarget)
+
+    Changed onClientEvent()
+    Changed saveScreenshot()
+    Changed setShouldScale()
+    Changed framebuffer = new
+
+-- ConfigHandler
+
+    Minecraft.gameDir --> Minecraft.gameDirectory
+
+-- DynamicResolutionHandler
+    addButton(button) --> addWidget(button)
+    Changed update()
+
+--ScreenshotSettingsScreen
+    addButton(button) --> addWidget(button)
+    

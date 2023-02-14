@@ -5,6 +5,7 @@ import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
 import io.github.ultimateboomer.resolutioncontrol.util.RCUtil;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.TextComponent;
@@ -59,7 +60,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 			buttonSize, buttonSize,
 			decreaseText,
 			button -> changeScaleFactor(false));
-		addButton(decreaseButton);
+		addWidget(decreaseButton);
 
 		increaseButton = new Button(
 			centerX - 55 + buttonOffset - buttonSize / 2, buttonY,
@@ -67,7 +68,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 				increaseText,
 			button -> changeScaleFactor(true)
 		);
-		addButton(increaseButton);
+		addWidget(increaseButton);
 
 		setButton = new Button(
 				centerX - 55 - buttonOffset - buttonSize / 2, buttonY + buttonSize,
@@ -77,7 +78,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 					setManualEntry(!manualEntry, false);
 				}
 		);
-		addButton(setButton);
+		addWidget(setButton);
 
 		cancelOrResetButton = new Button(
 				centerX - 55 - buttonOffset + buttonSize / 2, buttonY + buttonSize,
@@ -92,13 +93,13 @@ public final class MainSettingsScreen extends SettingsScreen {
 					}
 				}
 		);
-		addButton(cancelOrResetButton);
+		addWidget(cancelOrResetButton);
 
 		entryTextField = new EditBox(font,
 				centerX - 55 - textFieldSize / 2, centerY - 36,
 				textFieldSize, buttonSize, TextComponent.EMPTY);
 		entryTextField.setVisible(false);
-		addButton(entryTextField);
+		addWidget(entryTextField);
 
 		upscaleAlgoButton = new Button(
 			centerX + 15, centerY - 28,
@@ -109,7 +110,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 				button.setMessage(mod.getUpscaleAlgorithm().getText());
 			}
 		);
-		addButton(upscaleAlgoButton);
+		addWidget(upscaleAlgoButton);
 
 		downscaleAlgoButton = new Button(
 				centerX + 15, centerY + 8,
@@ -120,7 +121,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 					button.setMessage(mod.getDownscaleAlgorithm().getText());
 				}
 		);
-		addButton(downscaleAlgoButton);
+		addWidget(downscaleAlgoButton);
 
 		updateButtons();
 	}
@@ -176,7 +177,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 	public void tick() {
 		if (manualEntry) {
 			if (!this.entryTextField.isFocused()) {
-				entryTextField.setFocused2(true);
+				entryTextField.setFocus(true);
 			}
 
 			if (!entryTextField.active) {
@@ -218,18 +219,18 @@ public final class MainSettingsScreen extends SettingsScreen {
 	public void setManualEntry(boolean manualEntry, boolean cancel) {
 		this.manualEntry = manualEntry;
 		if (manualEntry) {
-			entryTextField.setText(String.valueOf(mod.getScaleFactor()));
+			entryTextField.setValue(String.valueOf(mod.getScaleFactor()));
 			entryTextField.setVisible(true);
 			entryTextField.setCursorPosition(0);
-			entryTextField.setCursorPosition(entryTextField.getText().length());
+			entryTextField.setCursorPosition(entryTextField.getValue().length());
 			entryTextField.active = true;
 			cancelOrResetButton.setMessage(cancelText);
 			increaseButton.active = false;
 			decreaseButton.active = false;
-			this.entryTextField.setFocused2(true);
+			this.entryTextField.setFocus(true);
 		} else {
 			if (!cancel) {
-				String text = entryTextField.getText();
+				String text = entryTextField.getValue();
 				if (NumberUtils.isParsable(text)) {
 					float value = Math.abs(Float.parseFloat(text));
 					mod.setScaleFactor(value);

@@ -1,7 +1,7 @@
 package io.github.ultimateboomer.resolutioncontrol.client.gui.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+// import com.mojang.blaze3d.platform.GlStateManager;
 import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
@@ -110,7 +110,7 @@ public class SettingsScreen extends Screen {
     @Override
     public void render(@Nonnull PoseStack matrices, int mouseX, int mouseY, float delta) {
     //  if (minecraft != null && minecraft.world == null) {
-        if (minecraft != null && minecraft.player.isAddedToWorld()) {
+        if (minecraft != null && minecraft.player != null & minecraft.player.isAddedToWorld()) {
             renderBackground(matrices, 0);
         }
 

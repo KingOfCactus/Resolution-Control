@@ -17,7 +17,7 @@ public class WorldRendererMixin {
     @Inject(at = @At("RETURN"), method = "doEntityOutline")
     private void onLoadEntityOutlineShader(CallbackInfo ci) {
         if(ResolutionControlMod.isInit()) {
-            ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+            ResolutionControlMod.getInstance().resizeMinecraftRenderTargets();
         }
     }
 
@@ -25,12 +25,12 @@ public class WorldRendererMixin {
     private void onOnResized(CallbackInfo ci) {
         if (entityTarget == null) return;
         if(ResolutionControlMod.isInit()) {
-            ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+            ResolutionControlMod.getInstance().resizeMinecraftRenderTargets();
         }
     }
 
      @Inject(at = @At("RETURN"), method = "initTransparency")
      private void onLoadTransparencyShader(CallbackInfo ci) {
-        ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+        ResolutionControlMod.getInstance().resizeMinecraftRenderTargets();
     }
 }

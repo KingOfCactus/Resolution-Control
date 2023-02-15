@@ -9,7 +9,8 @@ import java.io.*;
 
 public final class ConfigHandler {
 	public static final ConfigHandler instance = new ConfigHandler();
-	
+//	private static Minecraft client = Minecraft.getInstance();
+
 	private static File configFile() {
 		return new File(Minecraft.getInstance().gameDirectory, "config/" + ResolutionControlMod.MOD_ID + ".json");
 	}

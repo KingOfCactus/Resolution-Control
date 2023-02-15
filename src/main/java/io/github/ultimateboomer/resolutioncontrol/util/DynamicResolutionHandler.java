@@ -50,7 +50,7 @@ public class DynamicResolutionHandler {
     //    float fps = 1_000_000_000.0f / (sum / smoothAmount);
 
         float fps = Float.valueOf(client.fpsString);
-
+        
         if (fps > Config.getInstance().drMaxFps) {
             setCurrentScale(Math.min(currentScale + 1, scales.size() - 1));
             timer = 15;
@@ -67,7 +67,7 @@ public class DynamicResolutionHandler {
         this.currentScale = currentScale;
 
         if (!equal) {
-            ResolutionControlMod.getInstance().updateFramebufferSize();
+            ResolutionControlMod.getInstance().updateRenderTargetSize();
         }
     }
 

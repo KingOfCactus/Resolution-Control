@@ -15,7 +15,7 @@ public abstract class MinecraftClientMixin{
 	private void onInitFramebuffer(GameConfig gameConfiguration, CallbackInfo ci) {
 		ResolutionControlMod mod = ResolutionControlMod.getInstance();
 		if (mod != null && mod.isScreenshotFramebufferAlwaysAllocated()) {
-			mod.initScreenshotFramebuffer();
+			mod.initScreenshotRenderTarget();
 		}
 	}
 

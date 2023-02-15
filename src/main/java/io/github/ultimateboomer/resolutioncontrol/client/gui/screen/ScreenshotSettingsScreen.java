@@ -12,8 +12,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import javax.annotation.Nullable;
 
 public class ScreenshotSettingsScreen extends SettingsScreen {
-    private static final double[] scaleValues = {0.1, 0.25, 0.5, 1.0,
-            2.0, 3.0, 4.0, 6.0, 8.0, 16.0};
+//    private static final double[] scaleValues = {0.1, 0.25, 0.5, 1.0,
+//            2.0, 3.0, 4.0, 6.0, 8.0, 16.0};
 
     private static final Component increaseText = new TextComponent("x2");
     private static final Component decreaseText = new TextComponent("/2");
@@ -153,7 +153,7 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                 mod.setScreenshotHeight(newHeight);
 
                 if (mod.isScreenshotFramebufferAlwaysAllocated()) {
-                    mod.initScreenshotFramebuffer();
+                    mod.initScreenshotRenderTarget();
                 }
             }
         }

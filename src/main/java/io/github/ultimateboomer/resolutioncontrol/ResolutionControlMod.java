@@ -313,7 +313,6 @@ public class ResolutionControlMod{
 
 		framebuffer = new RenderTarget(true) {};
 		framebuffer.resize(getScreenshotWidth(), getScreenshotHeight(), true);
-
 	}
 	
 	public float getScaleFactor() {

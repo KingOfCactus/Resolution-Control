@@ -30,6 +30,29 @@ just to help me keep track of the original methods, for when i build this and ev
     GlStateManager.texImage2D(args) ---> GlStateManager._texImage2D(args)
     GlStateManager.bindTexture(int) ---> GlStateManager._bindTexture(int)
     Minecraft.getMainWindow() ---> Minecraft.getWindow()
+    
+    getFrameBufferTexture(args) --> getColorTextureId(args)
+    framebufferRenderExtRaw(args) --> blitToScreen(args) ?????
+
+-- WindowMixin
+
+    getFramebufferWidth() --> getWidth()
+    getFramebufferHeight() --> getHeight()
+    getGuiScaleFactor() --> getGuiScale()
+    updateFramebufferSize() --> refreshFramebufferSize()
+    onWindowSizeUpdate() --> onRezise()
+
+
+--WorldRendererMixin
+
+    makeEntityOutlineShader() --> doEntityOutline()
+    loadTransparencyShader() --> initTransparency()
+    resetFrameBuffers() --> clear()
+
+
+-- GameRendererMixin
+
+    renderWorld() --> renderLevel()
 
 
 -- MainWindowAccessor
@@ -84,6 +107,9 @@ just to help me keep track of the original methods, for when i build this and ev
     addButton(button) --> addWidget(button)
     Changed update()
 
---ScreenshotSettingsScreen
+-- ScreenshotSettingsScreen
     addButton(button) --> addWidget(button)
     
+-- WorldRenderer
+
+    entityOutlineFramebuffer --> entityTarget

@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.nio.IntBuffer;
 
@@ -25,7 +26,7 @@ public abstract class FramebufferMixin {
     @Unique private float scaleMultiplier;
 
     @Shadow
-    public abstract int getFrameBufferTexture();
+    public abstract int getColorTextureId();
 
     @Inject(method = "createBuffers", at = @At("HEAD"))
     private void onInitFbo(int width, int height, boolean getError, CallbackInfo ci) {
@@ -34,7 +35,7 @@ public abstract class FramebufferMixin {
     }
 
 
-    @Redirect(method = "*", at = @At(value = "INVOKE",
+/*  @Redirect(method = "*", at = @At(value = "INVOKE",
             target = "Lcom/mojang/blaze3d/platform/GlStateManager;texParameter(III)V"))
     private void onSetTexFilter(int target, int pname, int param) {
 
@@ -81,4 +82,5 @@ public abstract class FramebufferMixin {
             GL45.glGenerateMipmap(GL11.GL_TEXTURE_2D);
         }
     }
+*/
 }

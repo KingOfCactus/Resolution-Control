@@ -12,25 +12,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = LevelRenderer.class)
 public class WorldRendererMixin {
     @Shadow
-    private RenderTarget entityOutlineFramebuffer;
+    private RenderTarget entityTarget;
 
-    @Inject(at = @At("RETURN"), method = "makeEntityOutlineShader")
+    @Inject(at = @At("RETURN"), method = "doEntityOutline")
     private void onLoadEntityOutlineShader(CallbackInfo ci) {
         if(ResolutionControlMod.isInit()) {
             ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
         }
     }
 
-    @Inject(at = @At("RETURN"), method = "resetFrameBuffers")
+    @Inject(at = @At("RETURN"), method = "clear")
     private void onOnResized(CallbackInfo ci) {
-        if (entityOutlineFramebuffer == null) return;
+        if (entityTarget == null) return;
         if(ResolutionControlMod.isInit()) {
             ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
         }
     }
 
-//    @Inject(at = @At("RETURN"), method = "loadTransparencyShader")
-//    private void onLoadTransparencyShader(CallbackInfo ci) {
-//        ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
-//    }
+     @Inject(at = @At("RETURN"), method = "initTransparency")
+     private void onLoadTransparencyShader(CallbackInfo ci) {
+        ResolutionControlMod.getInstance().resizeMinecraftFramebuffers();
+    }
 }

@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Window.class)
 public abstract class WindowMixin {
-	@Inject(at = @At("RETURN"), method = "getFramebufferWidth", cancellable = true)
-	private void getFramebufferWidth(CallbackInfoReturnable<Integer> ci) {
+	@Inject(at = @At("RETURN"), method = "getWidth", cancellable = true)
+	private void getWidth(CallbackInfoReturnable<Integer> ci) {
 		if (ResolutionControlMod.isInit()  && ResolutionControlMod.getInstance().isScreenshotting()) {
 			ci.setReturnValue(ResolutionControlMod.getInstance().getScreenshotWidth());
 		} else {
@@ -20,8 +20,8 @@ public abstract class WindowMixin {
 		}
 	}
 	
-	@Inject(at = @At("RETURN"), method = "getFramebufferHeight", cancellable = true)
-	private void getFramebufferHeight(CallbackInfoReturnable<Integer> ci) {
+	@Inject(at = @At("RETURN"), method = "getHeight", cancellable = true)
+	private void getHeight(CallbackInfoReturnable<Integer> ci) {
 		if (ResolutionControlMod.isInit() && ResolutionControlMod.getInstance().isScreenshotting()) {
 			ci.setReturnValue(ResolutionControlMod.getInstance().getScreenshotHeight());
 		} else {
@@ -35,7 +35,7 @@ public abstract class WindowMixin {
 		return Math.max(Mth.ceil((double) value * scaleFactor), 1);
 	}
 	
-	@Inject(at = @At("RETURN"), method = "getGuiScaleFactor", cancellable = true)
+	@Inject(at = @At("RETURN"), method = "getGuiScale", cancellable = true)
 	private void getScaleFactor(CallbackInfoReturnable<Double> ci) {
 		if(ResolutionControlMod.isInit()) {
 			ci.setReturnValue(ci.getReturnValueD() * ResolutionControlMod.getInstance().getCurrentScaleFactor());
@@ -44,7 +44,7 @@ public abstract class WindowMixin {
 		}
 	}
 	
-	@Inject(at = @At("RETURN"), method = "onWindowSizeUpdate")
+	@Inject(at = @At("RETURN"), method = "onResize")
 	private void onFramebufferSizeChanged(CallbackInfo ci) {
 		if(ResolutionControlMod.isInit()) {
 			ResolutionControlMod.getInstance().onResolutionChanged();
@@ -52,7 +52,7 @@ public abstract class WindowMixin {
 
 	}
 	
-	@Inject(at = @At("RETURN"), method = "updateFramebufferSize")
+	@Inject(at = @At("RETURN"), method = "refreshFramebufferSize")
 	private void onUpdateFramebufferSize(CallbackInfo ci) {
 		if(ResolutionControlMod.isInit()) {
 			ResolutionControlMod.getInstance().onResolutionChanged();

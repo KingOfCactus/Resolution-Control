@@ -9,14 +9,14 @@ import io.github.ultimateboomer.resolutioncontrol.ResolutionControlMod;
 
 @Mixin(value = GameRenderer.class)
 public abstract class GameRendererMixin {
-	@Inject(at = @At("HEAD"), method = "renderWorld")
+	@Inject(at = @At("HEAD"), method = "renderLevel")
 	private void onRenderWorldBegin(CallbackInfo callbackInfo) {
 		if(ResolutionControlMod.isInit()) {
 			ResolutionControlMod.getInstance().setShouldScale(true);
 		}
 	}
 	
-	@Inject(at = @At("RETURN"), method = "renderWorld")
+	@Inject(at = @At("RETURN"), method = "renderLevel")
 	private void onRenderWorldEnd(CallbackInfo callbackInfo) {
 		if(ResolutionControlMod.isInit()) {
 			ResolutionControlMod.getInstance().setShouldScale(false);

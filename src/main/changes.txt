@@ -9,7 +9,7 @@ just to help me keep track of the original methods, for when i build this and ev
 
 -- SettingsScreen
 
-    addButton(button) --> addWidget(button)
+    addButton(button) --> addRenderableWidget(button)
 
     FontRenderer(?).getStringWidth(string) --> Font.width(string)
     FontRenderer(?).drawString(PoseStack(?), string, float, float, int) --> Font.draw(PoseStack, string, float, float, int)
@@ -104,11 +104,11 @@ just to help me keep track of the original methods, for when i build this and ev
     Minecraft.gameDir --> Minecraft.gameDirectory
 
 -- DynamicResolutionHandler
-    addButton(button) --> addWidget(button)
+    addButton(button) --> addRenderableWidget(button)
     Changed update()
 
 -- ScreenshotSettingsScreen
-    addButton(button) --> addWidget(button)
+    addButton(button) --> addRenderableWidget(button)
     
 -- WorldRenderer
 

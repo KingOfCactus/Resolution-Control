@@ -60,7 +60,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 			buttonSize, buttonSize,
 			decreaseText,
 			button -> changeScaleFactor(false));
-		addWidget(decreaseButton);
+		addRenderableWidget(decreaseButton);
 
 		increaseButton = new Button(
 			centerX - 55 + buttonOffset - buttonSize / 2, buttonY,
@@ -68,7 +68,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 				increaseText,
 			button -> changeScaleFactor(true)
 		);
-		addWidget(increaseButton);
+		addRenderableWidget(increaseButton);
 
 		setButton = new Button(
 				centerX - 55 - buttonOffset - buttonSize / 2, buttonY + buttonSize,
@@ -78,7 +78,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 					setManualEntry(!manualEntry, false);
 				}
 		);
-		addWidget(setButton);
+		addRenderableWidget(setButton);
 
 		cancelOrResetButton = new Button(
 				centerX - 55 - buttonOffset + buttonSize / 2, buttonY + buttonSize,
@@ -93,13 +93,13 @@ public final class MainSettingsScreen extends SettingsScreen {
 					}
 				}
 		);
-		addWidget(cancelOrResetButton);
+		addRenderableWidget(cancelOrResetButton);
 
 		entryTextField = new EditBox(font,
 				centerX - 55 - textFieldSize / 2, centerY - 36,
 				textFieldSize, buttonSize, TextComponent.EMPTY);
 		entryTextField.setVisible(false);
-		addWidget(entryTextField);
+		addRenderableWidget(entryTextField);
 
 		upscaleAlgoButton = new Button(
 			centerX + 15, centerY - 28,
@@ -110,7 +110,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 				button.setMessage(mod.getUpscaleAlgorithm().getText());
 			}
 		);
-		addWidget(upscaleAlgoButton);
+		addRenderableWidget(upscaleAlgoButton);
 
 		downscaleAlgoButton = new Button(
 				centerX + 15, centerY + 8,
@@ -121,7 +121,7 @@ public final class MainSettingsScreen extends SettingsScreen {
 					button.setMessage(mod.getDownscaleAlgorithm().getText());
 				}
 		);
-		addWidget(downscaleAlgoButton);
+		addRenderableWidget(downscaleAlgoButton);
 
 		updateButtons();
 	}

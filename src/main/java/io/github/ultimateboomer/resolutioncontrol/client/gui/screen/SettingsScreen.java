@@ -91,7 +91,7 @@ public class SettingsScreen extends Screen {
             o.add(25);
         });
 
-        menuButtons.values().forEach(this::addWidget);
+        menuButtons.values().forEach(this::addRenderableWidget);
 
         doneButton = new Button(
                 centerX + 15, startY + containerHeight - 30,
@@ -104,7 +104,7 @@ public class SettingsScreen extends Screen {
                     }
                 }
         );
-        addWidget(doneButton);
+        addRenderableWidget(doneButton);
     }
 
     @Override

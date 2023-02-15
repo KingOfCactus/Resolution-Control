@@ -51,7 +51,7 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                     button.setMessage(getStateText(mod.getOverrideScreenshotScale()));
                 }
         );
-        addWidget(toggleOverrideSizeButton);
+        addRenderableWidget(toggleOverrideSizeButton);
 
         toggleAlwaysAllocatedButton = new Button(
                 centerX + 20, centerY - 20,
@@ -62,42 +62,42 @@ public class ScreenshotSettingsScreen extends SettingsScreen {
                     button.setMessage(getStateText(mod.isScreenshotFramebufferAlwaysAllocated()));
                 }
         );
-        addWidget(toggleAlwaysAllocatedButton);
+        addRenderableWidget(toggleAlwaysAllocatedButton);
 
         widthTextField = new EditBox(font,
                 centerX - 85, centerY + 7,
                 textFieldSize, buttonSize,
                 TextComponent.EMPTY);
         widthTextField.setValue(String.valueOf(mod.getScreenshotWidth()));
-        addWidget(widthTextField);
+        addRenderableWidget(widthTextField);
 
         heightTextField = new EditBox(font,
                 centerX - 35, centerY + 7,
                 textFieldSize, buttonSize,
                 TextComponent.EMPTY);
         heightTextField.setValue(String.valueOf(mod.getScreenshotHeight()));
-        addWidget(heightTextField);
+        addRenderableWidget(heightTextField);
 
         increaseButton = new Button(
                 centerX - 10 - 60, centerY + 35,
                 20, 20,
                 increaseText,
                 button -> multiply(2.0));
-        addWidget(increaseButton);
+        addRenderableWidget(increaseButton);
 
         decreaseButton = new Button(
                 centerX + 10 - 60, centerY + 35,
                 20, 20,
                 decreaseText,
                 button -> multiply(0.5));
-        addWidget(decreaseButton);
+        addRenderableWidget(decreaseButton);
 
         resetButton = new Button(
                 centerX + 30 - 60, centerY + 35,
                 20, 20,
                 resetText,
                 button -> resetSize());
-        addWidget(resetButton);
+        addRenderableWidget(resetButton);
 
         calculateSize();
     }

@@ -18,8 +18,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmlclient.registry.ClientRegistry;
-import net.minecraftforge.fmlserverevents.FMLServerStartedEvent;
+import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.event.server.ServerStartedEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -110,7 +110,7 @@ public class ResolutionControlMod{
 	}
 
 	@SubscribeEvent
-	public void serverLoaded(FMLServerStartedEvent event){
+	public void serverLoaded(ServerStartedEvent event){
 		if (ConfigHandler.instance.getConfig().enableDynamicResolution) {
 			DynamicResolutionHandler.INSTANCE.reset();
 		}

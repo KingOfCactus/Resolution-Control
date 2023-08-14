@@ -6,7 +6,7 @@
 A fork of [LuZWCHA's ResolutionControl+ Forge](https://github.com/LuZWCHA/Resolution-Control), that is a forge fork of [Resolution Control+](https://github.com/UltimateBoomer/Resolution-Control) which is originally a fork of [Resolution Control](https://github.com/juliand665/Resolution-Control)
 with new functionality. Yeah, lots of forks.
 
-This is a port to 1.17.2 and 1.18.2 that i made some months ago without previous forge modding knowledge. The option menu background is buggy, linear scale is broken, dynamic resolution is broken, and there's probably other broken things i don't remember now. Shaders seems to work tho. With that said, **use this at your own risk 👍**.
+This is a port to 1.17.1 and 1.18.2 that i made some months ago without previous forge modding knowledge. The option menu background is buggy, linear scale is broken, dynamic resolution is broken, and there's probably other broken things i don't remember now. Shaders seems to work tho. With that said, **use this at your own risk 👍**.
 
 ![main](GitHub/lowresshaders.png)
 
